@@ -1,24 +1,23 @@
 class VendingMachine
-  #10円玉、50円玉、100円玉、500円玉、1000円札
-  AVAILABLE_MONEY = [10, 50, 100, 500, 1000]
+  USEABLE_MONEY = [10, 50, 100, 500, 1000]
   attr_reader :total, :sale_amount
 
+  #初期化
   def initialize
-    #初期化
     @total = 0
     @sale_amount = 0
     @drink_table = {}
     #ドリンククラスを作成したら5本格納の文を書く
-    5.times { store Drink.cola }
+    5.times { store Drink.coke }
   end
 
+  #投入金額
   def insert(money)
-    #投入金額
-    AVAILABLE_MONEY.include?(money) ? nil.tap{@total += money } : money
+    USEABLE_MONEY.include?(money) ? nil.tap{@total += money } : money
   end
 
-  def refund
-    #お釣り
+  #お釣り
+  def change
     total.tap { @total = 0}
   end
 
@@ -34,7 +33,7 @@ class VendingMachine
       drink = @drink[drink_name][:drinks].pop
       @sale_amount += drink.price
       @total -= drink.price
-      [drink,refund]
+      [drink,change]
     end
   end
 

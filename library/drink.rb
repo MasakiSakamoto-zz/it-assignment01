@@ -1,11 +1,11 @@
 class Drink
   attr_reader :name, :price
 
-  def self.cola
-    self.new 120, :cola
+  def self.coke
+    self.new 120, :coke
   end
 
-  def.self.redbull
+  def self.redbull
     self.new 200, :redbull
   end
 
