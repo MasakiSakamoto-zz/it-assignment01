@@ -8,12 +8,12 @@ class VendingMachine
     @sale_amount = 0
     @drink_table = {}
     #ドリンククラスを作成したら5本格納の文を書く
-    5.times { store Drink.coke }
+    5.times { store ::Drink.coke }
   end
 
   #投入金額
   def insert(money)
-    USEABLE_MONEY.include?(money) ? nil.tap{@total += money } : money
+    USEABLE_MONEY.include?(money) ? nil.tap { @total += money } : money
   end
 
   #お釣り
@@ -23,14 +23,14 @@ class VendingMachine
 
   def store(drink)
     nil.tap do
-      @drink_table[drink.name] = {price: drink.price, drinks: [] } unless @drink_table.has_key? drink.name
+      @drink_table[drink.name] = { price: drink.price, drinks: [] } unless @drink_table.has_key? drink.name
       @drink_table[drink.name][:drinks] << drink
     end
   end
 
   def purchase(drink_name)
     if purchaseable? drink_name
-      drink = @drink[drink_name][:drinks].pop
+      drink = @drink_table[drink_name][:drinks].pop
       @sale_amount += drink.price
       @total -= drink.price
       [drink,change]
@@ -38,7 +38,7 @@ class VendingMachine
   end
 
   def purchaseable?(drink_name)
-    purchaseable_drink_names.include? drink_name]
+    purchaseable_drink_names.include? drink_name
   end
 
   def purchaseable_drink_names
@@ -48,5 +48,4 @@ class VendingMachine
   def stock_info
     Hash[@drink_table.map {|name, info| [name, { price: info[:price], stock: info[:drinks].size }] }]
   end
-
 end

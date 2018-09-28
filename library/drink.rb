@@ -1,3 +1,6 @@
+require './vending_machine'
+#require 'byebug'
+
 class Drink
   attr_reader :name, :price
 
@@ -35,3 +38,7 @@ class Drink
     "<Drink: name=#{name}, price=#{price}>"
   end
 end
+
+#vm = VendingMachine.new
+#vm.insert 500
+#vm.purchase :coke
